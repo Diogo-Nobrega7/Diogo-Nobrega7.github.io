@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { profile, siteUrl } from "@/content/site";
 const description =
-  "Analista de dados e desenvolvedor na SUEP/SEEC-RN. Power BI, SQL, Python e o Portal EPT RN para a Educação Profissional do Rio Grande do Norte.";
+  "Analista de dados e desenvolvedor em Natal, RN. Painéis em Power BI e bases em Python e SQL para a Educação Profissional da SEEC/RN, sites, sistemas web e agentes de IA.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(`${siteUrl}/`),
@@ -37,6 +37,8 @@ const personJsonLd = {
   "@type": "Person",
   name: profile.name,
   jobTitle: profile.role,
+  alumniOf: { "@type": "CollegeOrUniversity", name: "Universidade Federal do Rio Grande do Norte" },
+  address: { "@type": "PostalAddress", addressLocality: "Natal", addressRegion: "RN", addressCountry: "BR" },
   worksFor: { "@type": "GovernmentOrganization", name: profile.orgLong },
   sameAs: [profile.links.github, profile.links.linkedin],
   email: `mailto:${profile.email}`,

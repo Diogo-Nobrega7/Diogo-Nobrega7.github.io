@@ -6,6 +6,7 @@ const nav = [
   { href: "#cases", label: "Cases" },
   { href: "#projetos", label: "Projetos" },
   { href: "#stack", label: "Stack" },
+  { href: "#formacao", label: "Formação" },
   { href: "#contato", label: "Contato" },
 ];
 

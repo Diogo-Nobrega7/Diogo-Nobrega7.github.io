@@ -3,12 +3,12 @@ import { profile } from "@/content/site";
 import { Container, GithubMark, LinkedinMark } from "./ui";
 
 const specs = [
-  { k: "Foco", v: "Dados educacionais · Sistemas web" },
-  { k: "Órgão", v: profile.org },
-  { k: "Unidade", v: profile.unit },
-  { k: "Formação", v: profile.education },
+  { k: "Cargo", v: profile.position, sub: profile.since },
+  { k: "Órgão", v: profile.org, sub: "Educação Profissional" },
+  { k: "Formação", v: profile.education, sub: profile.educationDetail },
+  { k: "Idiomas", v: profile.languages },
   { k: "Base", v: profile.location },
-];
+]
 
 export function Hero() {
   const links = [
@@ -25,7 +25,7 @@ export function Hero() {
       <Container className="relative grid gap-14 pt-20 pb-20 sm:pt-28 sm:pb-28 lg:grid-cols-12 lg:gap-8">
         <div className="reveal lg:col-span-8">
           <p className="font-mono text-xs text-faint">
-            <span className="text-accent">●</span> atuando hoje na {profile.org}
+            <span className="text-accent">●</span> {profile.availability.toLowerCase()}
           </p>
           <h1 className="mt-6 text-5xl font-semibold tracking-[-0.035em] sm:text-7xl lg:text-8xl">
             {profile.name}
@@ -66,7 +66,10 @@ export function Hero() {
             {specs.map((s) => (
               <div key={s.k} className="grid grid-cols-[6.5rem_1fr] gap-3 px-4 py-3">
                 <dt className="font-mono text-xs text-faint">{s.k}</dt>
-                <dd className="text-sm leading-snug text-fg">{s.v}</dd>
+                <dd className="text-sm leading-snug text-fg">
+                  {s.v}
+                  {s.sub && <span className="mt-0.5 block font-mono text-[11px] text-faint">{s.sub}</span>}
+                </dd>
               </div>
             ))}
           </dl>

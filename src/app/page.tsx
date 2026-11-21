@@ -1,5 +1,6 @@
 import { Cases } from "@/components/Cases";
 import { Contact } from "@/components/Contact";
+import { Education } from "@/components/Education";
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import { Projects } from "@/components/Projects";
@@ -20,6 +21,7 @@ export default function Home() {
         <Cases />
         <Projects />
         <Stack />
+        <Education />
         <Contact />
       </main>
     </>

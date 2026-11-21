@@ -7,7 +7,7 @@ export function Contact() {
     <section id="contato" aria-labelledby="contato-title" className="border-t border-line">
       <Container className="grid gap-10 py-20 sm:py-28 lg:grid-cols-12 lg:gap-8">
         <p className="font-mono text-xs tracking-wide text-faint lg:col-span-3">
-          <span className="text-accent">04</span> / Contato
+          <span className="text-accent">05</span> / Contato
         </p>
         <div className="lg:col-span-9">
           <h2
@@ -16,6 +16,7 @@ export function Contact() {
           >
             Dados públicos, sistema ou painel: me conta o problema.
           </h2>
+          <p className="mt-4 text-muted">{profile.availability}. Respondo por e-mail ou LinkedIn.</p>
           <div className="mt-10">
             <CopyEmail email={profile.email} />
           </div>

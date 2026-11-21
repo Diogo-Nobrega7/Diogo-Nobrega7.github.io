@@ -1,9 +1,6 @@
 /**
  * Todo o conteúdo do site fica aqui. Os componentes só leem este arquivo.
- *
- * Campos marcados com TODO precisam de um dado real seu antes de publicar.
- * Regra: nenhum número entra sem ser verdadeiro. Métricas com `value: null`
- * não aparecem no site.
+ * Fonte: currículo 2026 e repositórios do GitHub. Regra: nenhum número entra sem ser verdadeiro.
  */
 
 /** URL pública do site (sem barra no fim). Definida no build pelo workflow de deploy. */
@@ -13,16 +10,20 @@ export const siteUrl = (
 
 export const profile = {
   name: "Diogo Nóbrega",
-  role: "Analista de Dados & Desenvolvedor de Software",
+  role: "Analista de Dados & Desenvolvedor",
   org: "SEEC/RN · SUEP",
   orgLong:
     "Secretaria de Estado da Educação, da Cultura, do Esporte e do Lazer do Rio Grande do Norte",
-  unit: "Subdiretoria de Educação Profissional e Ensino Técnico Especial",
-  education: "Tecnologia da Informação · UFRN",
-  location: "Rio Grande do Norte, Brasil",
+  position: "Estagiário de TI · Análise de Dados",
+  since: "2026 – hoje",
+  education: "Bacharelado em TI · UFRN",
+  educationDetail: "6º período · 2024–2027",
+  location: "Natal, RN",
+  languages: "Inglês fluente · Espanhol intermediário",
+  availability: "Aberto a oportunidades como Analista de Dados",
   summary: [
-    "Trabalho na SUEP, na SEEC/RN, entre dados e software: modelo as bases da Educação Profissional, construo os painéis em Power BI que acompanham as escolas da rede estadual e desenvolvo o Portal EPT RN.",
-    "Do SQL à interface: o mesmo dado sai do banco, vira indicador e chega a quem decide.",
+    "Estudante de TI na UFRN e estagiário de análise de dados na SEEC/RN. Transformo as planilhas de monitoramento da educação profissional em bases prontas para análise e em painéis de Power BI que a SUEP usa para planejar a rede estadual.",
+    "Também desenvolvo sites e plataformas web e crio agentes de IA que automatizam processos.",
   ],
   email: "diogonobrega0110@gmail.com",
   links: {
@@ -30,8 +31,6 @@ export const profile = {
     linkedin: "https://www.linkedin.com/in/diogo-n%C3%B3brega-044265302/",
   },
 } as const;
-
-export type Metric = { label: string; value: string | null };
 
 export type CaseStudy = {
   id: string;
@@ -41,12 +40,13 @@ export type CaseStudy = {
   lede: string;
   problem: string;
   architecture: { step: string; detail: string }[];
+  /** Entregas concretas (ex.: cada painel). */
+  deliverables?: { name: string; detail: string; badge?: string }[];
   impact: string[];
   stack: string[];
-  metrics: Metric[];
-  /** Power BI: URL de "Publicar na Web" ou de embed seguro. Vazio = mostra o esquema. */
+  /** Power BI: URL de "Publicar na Web". Vazio = mostra o esquema do pipeline. */
   embedUrl?: string;
-  /** Screenshots em /public/cases/... (anonimize dados de alunos antes). */
+  /** Capturas em /public/cases/... (sem dados de estudantes). */
   screenshots?: { src: string; alt: string }[];
   link?: { label: string; href: string };
 };
@@ -56,41 +56,46 @@ export const cases: CaseStudy[] = [
     id: "bi-rede-estadual",
     index: "01",
     client: "SEEC/RN — SUEP",
-    title: "Ecossistema de BI da rede estadual",
-    lede: "Painéis em Power BI para a gestão acompanhar os indicadores das escolas de Educação Profissional do RN.",
-    // TODO: rascunho meu a partir do contexto típico. Reescreva com o problema real.
+    title: "Dados e painéis da Educação Profissional",
+    lede: "Bases tratadas e painéis em Power BI para a SUEP acompanhar as escolas técnicas da rede estadual do RN.",
     problem:
-      "Acompanhar a rede de Educação Profissional exige cruzar dados de muitas escolas, vindos de fontes com formatos e periodicidades diferentes. Sem um modelo comum, cada pergunta da gestão vira um trabalho manual, e o mesmo indicador pode sair com valores diferentes.",
+      "Os dados sobre professores, turmas e matrículas do ensino técnico chegavam em planilhas de monitoramento, feitas para preencher e não para analisar. Para planejar, a secretaria precisava ver a rede inteira e saber quais escolas pedem atenção.",
     architecture: [
       {
         step: "Fontes",
-        detail: "Planilhas das escolas, exportações de sistemas e bases oficiais da rede.",
+        detail: "Planilhas de monitoramento sobre professores, turmas e matrículas do ensino técnico.",
       },
       {
-        step: "ETL",
-        detail: "Limpeza e padronização em Python (pandas) e Power Query: chaves de escola, períodos e categorias únicas.",
+        step: "Tratamento",
+        detail: "Scripts em Python que convertem as planilhas em bases prontas para análise.",
       },
       {
         step: "Modelo",
-        detail: "Tabelas fato e dimensão (escola, curso, período) e medidas DAX com definição única para cada indicador.",
+        detail: "Modelagem de dados no Power BI e medidas em DAX para cada indicador.",
       },
       {
         step: "Painéis",
-        detail: "Visões por rede, regional e escola, com filtros que a gestão usa sem depender da equipe técnica.",
+        detail: "Filtros por DIREC, município e curso, com formatação condicional nas escolas que precisam de atenção.",
+      },
+    ],
+    deliverables: [
+      {
+        name: "Visitas técnicas",
+        detail: "Acompanhamento das visitas técnicas às unidades da rede.",
+        badge: "publicado na web",
+      },
+      {
+        name: "Indicadores de qualidade",
+        detail: "Aprovação, retenção e evasão das escolas técnicas, com SAEB e IDEB.",
       },
     ],
     impact: [
-      "Um número oficial por indicador, com a mesma definição em todos os painéis.",
-      "A gestão consulta a situação de cada escola direto no painel.",
-      "Atualização repetível: o mesmo tratamento roda a cada nova carga de dados.",
+      "As escolas que precisam de atenção aparecem destacadas, sem cruzar planilhas à mão.",
+      "Os indicadores de qualidade ficam num só lugar, filtráveis por DIREC, município e curso.",
+      "Métricas mapeadas para apoiar o planejamento educacional da secretaria.",
     ],
-    stack: ["Power BI", "DAX", "Power Query", "Python", "pandas", "SQL"],
-    // TODO: preencha só com números reais (ex.: "12"). null = não aparece.
-    metrics: [
-      { label: "Painéis em produção", value: null },
-      { label: "Escolas monitoradas", value: null },
-      { label: "Indicadores definidos", value: null },
-    ],
+    stack: ["Power BI", "DAX", "Power Query", "Python", "SQL", "Excel"],
+    // Cole aqui o link "Publicar na Web" do painel de visitas técnicas para ele aparecer embutido.
     embedUrl: "",
     screenshots: [],
   },
@@ -98,175 +103,143 @@ export const cases: CaseStudy[] = [
     id: "portal-ept-rn",
     index: "02",
     client: "SEEC/RN — SUEP",
-    title: "Portal EPT RN",
-    lede: "O portal da Educação Profissional e Tecnológica do RN: cursos, escolas e informação institucional num só endereço.",
-    // TODO: rascunho meu a partir do contexto típico. Reescreva com o problema real.
+    title: "Portal da Rede Estadual de EPT do RN",
+    lede: "O portal oficial da SUEP para a educação profissional e tecnológica do estado, com todas as escolas de ensino técnico da rede.",
     problem:
-      "Estudantes e famílias precisam de um lugar único para descobrir quais cursos técnicos existem, em que escola e como entrar, e a gestão precisa de um canal oficial para comunicar a Educação Profissional da rede.",
+      "Estudantes e famílias precisavam de um lugar único para conhecer as escolas de ensino técnico da rede estadual, e a SUEP precisava de um canal oficial para a educação profissional do RN.",
     architecture: [
-      {
-        step: "Conteúdo",
-        detail: "Estrutura de informação por público: estudante, família e gestor escolar.",
-      },
-      {
-        step: "Interface",
-        detail: "Layout mobile-first, porque a maior parte do público chega pelo celular.",
-      },
-      {
-        step: "Dados",
-        detail: "Catálogo de cursos e escolas mantido como dado estruturado, não como texto solto em página.",
-      },
-      {
-        step: "Entrega",
-        detail: "Publicação institucional sob a SEEC/RN.",
-      },
+      { step: "Conteúdo", detail: "Todas as escolas de ensino técnico da rede estadual, distribuídas em várias páginas." },
+      { step: "Navegação", detail: "Caminhos simples, pensados para quem não é da área técnica." },
+      { step: "Layout", detail: "Responsivo: se adapta ao computador e ao celular." },
+      { step: "Tecnologia", detail: "HTML, CSS e JavaScript, sem dependências pesadas." },
     ],
     impact: [
-      "Um endereço oficial para a Educação Profissional da rede.",
-      "Estudante encontra curso e escola em poucos toques no celular.",
+      "Um endereço oficial para a educação profissional e tecnológica do RN.",
+      "Todas as escolas técnicas da rede reunidas num só lugar.",
+      "Uso fácil no computador e no celular.",
     ],
-    // TODO: coloque a stack real do portal (ex.: "Next.js", "WordPress", "PHP"...).
-    stack: [],
-    metrics: [],
-    // TODO: URL pública do portal.
+    stack: ["HTML", "CSS", "JavaScript"],
+    // Cole aqui a URL pública do portal.
     link: undefined,
   },
 ];
 
 export type Project = {
+  id: string;
+  index: string;
   name: string;
-  /** Vazio = repositório privado (o card não leva a uma página 404). */
-  repo?: string;
-  language: string;
-  domain: string;
-  summary: string;
-  details: string[];
-  tags: string[];
-  featured?: boolean;
-  /** Ocupa 2 colunas no desktop (fecha buracos da grade). */
-  wide?: boolean;
-  live?: string;
+  tagline: string;
+  kind: string;
+  status?: string;
+  context: string;
+  features: string[];
+  engineering: string[];
+  stack: string[];
+  live?: { label: string; href: string };
 };
 
-/** Curadoria a partir dos repositórios públicos de github.com/Diogo-Nobrega7 (lidos em 21/11/2026). */
+/** Projetos próprios, fora da SUEP. Sem link para código: o foco é o que o sistema faz e como foi pensado. */
 export const projects: Project[] = [
   {
-    name: "monte-trip-2028",
-    repo: "https://github.com/Diogo-Nobrega7/monte-trip-2028",
-    live: "https://diogo-nobrega7.github.io/monte-trip-2028/",
-    language: "TypeScript",
-    domain: "Web · Banco de dados",
-    summary:
-      "Gestão financeira da viagem de formatura de uma turma: mensalidades, arrecadações, despesas com comprovante e prestação de contas pública.",
-    details: [
-      "Lançamentos financeiros imutáveis: correção só por estorno, validado por gatilho no Postgres.",
-      "Permissões no banco (RLS + funções por papel); a interface só esconde botões.",
-      "Valores em centavos (bigint), idempotency key por formulário e auditoria antes/depois por trigger.",
-      "Mesma regra de parcelas em SQL e em TypeScript, com os mesmos cenários de teste nos dois lados.",
+    id: "monte-trip",
+    index: "01",
+    name: "Monte Trip 2028",
+    tagline: "A gestão financeira da viagem de formatura de uma turma, com prestação de contas aberta.",
+    kind: "Sistema web · Gestão financeira",
+    context:
+      "Uma turma do 3º ano junta dinheiro para a viagem de formatura. Mensalidades, ações de arrecadação, despesas e rendimentos precisavam de controle confiável e de transparência para alunos, famílias e professor.",
+    features: [
+      "Mensalidades com vencimento, pagamento parcial e adicional por atraso.",
+      "Arrecadações, despesas com comprovante e rendimentos num livro-caixa único.",
+      "Página pública com os totais, sem expor dados de nenhum aluno.",
+      "Prestação de contas em CSV e PDF, importação de planilhas e backup.",
+      "Perfis separados: administrador, professor supervisor e visitante.",
     ],
-    tags: ["React", "TypeScript", "Supabase", "PostgreSQL", "RLS", "Vitest"],
-    featured: true,
-  },
-  {
-    name: "lojadoseuzebd",
-    repo: "https://github.com/lazarobo/lojadoseuzebd",
-    language: "SQL",
-    domain: "Banco de dados",
-    summary:
-      "Modelagem relacional de uma loja varejista em PostgreSQL: vendas, estoque, fornecedores e lucro real.",
-    details: [
-      "Compra como entidade associativa entre fornecedor e produto, guardando o custo histórico.",
-      "Preço gravado no item da venda para preservar o histórico quando o cadastro muda.",
-      "CTEs para lucro líquido e margem por produto.",
+    engineering: [
+      "Dinheiro imutável: nada é apagado ou editado; corrigir é estornar, e o banco valida o estorno.",
+      "Permissões garantidas no próprio Postgres (RLS e funções por papel), não só na tela.",
+      "Valores em centavos e chave de idempotência: sem erro de arredondamento nem lançamento duplicado.",
+      "Auditoria automática com antes/depois de cada alteração.",
+      "A regra das parcelas existe em SQL e em TypeScript, testada com os mesmos cenários nos dois lados.",
     ],
-    tags: ["PostgreSQL", "Modelagem ER", "CTE", "Jupyter"],
+    stack: ["React", "TypeScript", "Supabase", "PostgreSQL", "Vitest", "GitHub Pages"],
+    live: { label: "Ver o site", href: "https://diogo-nobrega7.github.io/monte-trip-2028/" },
   },
   {
-    name: "operacao-videos-ia",
-    language: "Python",
-    domain: "IA · Automação",
-    summary:
-      "Pipeline de produção de vídeos curtos orquestrado por 13 agentes Claude, do roteiro à publicação.",
-    details: [
-      "Cada agente tem função e regras próprias; uma IA cria, outra revisa.",
-      "Fato surpreendente só passa com duas fontes independentes.",
-      "Nada publica sem aprovação humana; pauta e métricas no Notion.",
+    id: "rumo",
+    index: "02",
+    name: "Rumo · Plano de Vida",
+    tagline: "Um painel de estudos e vida para quem está se preparando para o ENEM.",
+    kind: "Aplicação web · Educação",
+    context:
+      "Estudar para o ENEM envolve cronograma, revisão, redação, simulados e ainda planejar o futuro. A ideia foi reunir tudo num só lugar e transformar a constância em hábito.",
+    features: [
+      "Plano do dia com contagem para o ENEM, metas e sequência de dias estudados.",
+      "Cronograma semanal, aulas com Modo Foco e Pomodoro, simulados e metas no SISU.",
+      "Revisão espaçada com flashcards a partir dos próprios erros.",
+      "Redação com pré-análise pelas competências C1–C5 e pedido de correção ao Claude.",
+      "Finanças e carreira: simulador de investimentos com IR, salário líquido e comparador de carreiras.",
     ],
-    tags: ["Claude", "Multiagente", "Python", "Notion API"],
-  },
-  {
-    name: "Processos-e-Threads",
-    repo: "https://github.com/Diogo-Nobrega7/Processos-e-Threads",
-    language: "C",
-    domain: "Sistemas operacionais",
-    summary:
-      "Multiplicação de matrizes em três versões — sequencial, processos e threads — para comparar tempo de execução.",
-    details: [
-      "Processos com fork/wait e divisão do resultado em segmentos de P elementos.",
-      "Threads POSIX (pthreads) repartindo o mesmo trabalho em memória compartilhada.",
+    engineering: [
+      "Cálculos (juros, impostos, nota de redação, XP) isolados em funções puras e cobertos por testes.",
+      "Um único módulo fala com o banco; o resto da aplicação não conhece o Supabase.",
+      "Funciona em modo local, só no navegador, ou sincronizado com o Supabase.",
+      "Gamificação (XP, nível, missões e conquistas) para manter a constância.",
     ],
-    tags: ["C", "pthreads", "fork", "Concorrência"],
-    wide: true,
+    stack: ["React", "TypeScript", "Vite", "Tailwind", "Supabase"],
   },
   {
-    name: "ArvoresEDB",
-    repo: "https://github.com/Diogo-Nobrega7/ArvoresEDB",
-    language: "Python",
-    domain: "Estruturas de dados",
-    summary:
-      "Árvore AVL e Rubro-Negra com inserção, remoção, busca e impressão em pré-ordem, só com a biblioteca padrão.",
-    details: ["Rebalanceamento por altura (AVL) e por cor (Rubro-Negra) lado a lado."],
-    tags: ["Python", "AVL", "Rubro-Negra"],
-  },
-  {
-    name: "Plano-de-vida",
-    repo: "https://github.com/Diogo-Nobrega7/Plano-de-vida",
-    language: "TypeScript",
-    domain: "Web",
-    summary:
-      "Painel de estudos para o ENEM com plano do dia, revisão espaçada, correção de redação e simulador financeiro.",
-    details: [
-      "Cálculos puros com testes (juros, IR, gamificação) separados da interface.",
-      "Funciona em modo local, sem backend, ou com Supabase.",
+    id: "operacao-videos",
+    index: "03",
+    name: "Operação Vídeos com IA",
+    tagline: "Uma fábrica de vídeos curtos de ciência e história em que agentes de IA fazem o trabalho e um humano aprova.",
+    kind: "Automação · IA multiagente",
+    status: "Em construção · fase de pilotos",
+    context:
+      "Produzir vídeos curtos com regularidade, em duas marcas, dois idiomas e três plataformas, sem cair em conteúdo repetitivo nem publicar informação errada.",
+    features: [
+      "13 agentes com funções definidas: tendências, roteiro, checagem de fatos, adaptação para inglês, narração, edição, revisão, publicação e métricas.",
+      "Pauta, banco de ganchos, contas e métricas organizados em 7 bases no Notion.",
+      "Vídeos 9:16 renderizados a partir de HTML/SVG animado, com narração sincronizada às legendas.",
+      "Fluxos que levam o público a infoprodutos (ebook e curso) e reduzem o trabalho manual de produção.",
     ],
-    tags: ["React", "Vite", "Tailwind", "Supabase"],
-  },
-  {
-    name: "DadosLista",
-    repo: "https://github.com/Diogo-Nobrega7/DadosLista",
-    language: "Java",
-    domain: "Estruturas de dados",
-    summary:
-      "Listas encadeadas em Java aplicadas a casos reais, com a justificativa de cada escolha de estrutura.",
-    details: ["Fila simples, playlist circular dupla, rodízio circular e desfazer/refazer."],
-    tags: ["Java", "Listas encadeadas"],
-  },
-  {
-    name: "Sistema-Bancario-Simples",
-    repo: "https://github.com/Diogo-Nobrega7/Sistema-Bancario-Simples",
-    language: "C++",
-    domain: "Orientação a objetos",
-    summary:
-      "Contas e clientes em C++ com headers separados, depósito, saque e transferência com sobrecarga.",
-    details: [],
-    tags: ["C++", "POO"],
+    engineering: [
+      "Uma IA cria e outra revisa; um fato surpreendente só passa com duas fontes independentes.",
+      "Cada função tem uma ordem de provedores (Claude, Gemini, Perplexity, GPT, ElevenLabs) com plano B automático.",
+      "Nada vai ao ar sem a etapa de revisão humana.",
+      "A narração é o relógio: as pausas da voz definem o tempo de cada cena e legenda.",
+    ],
+    stack: ["Claude", "Python", "Notion API", "HyperFrames", "FFmpeg", "Node.js"],
   },
 ];
 
 export const stack: { domain: string; note: string; items: string[] }[] = [
   {
-    domain: "Engenharia de Dados & BI",
+    domain: "Dados & BI",
     note: "Onde passo a maior parte do tempo.",
-    items: ["Power BI", "DAX", "Power Query", "Python", "pandas", "scikit-learn", "SQL", "PostgreSQL", "Modelagem dimensional"],
+    items: ["Power BI", "DAX", "Power Query", "Python", "pandas", "SQL", "Excel avançado", "Modelagem de dados"],
   },
   {
-    domain: "Back-end & Web",
+    domain: "Bancos de dados",
     note: "Regra de negócio perto do dado.",
-    items: ["TypeScript", "React", "Next.js", "Vite", "Tailwind CSS", "Supabase", "Row Level Security", "Java", "C", "C++"],
+    items: ["PostgreSQL", "MySQL", "Oracle", "Supabase", "Row Level Security"],
   },
   {
-    domain: "Infraestrutura & Ferramentas",
-    note: "O que segura o resto de pé.",
-    items: ["Git", "GitHub Pages", "Vitest", "Playwright", "Linux", "Jupyter", "Notion API", "Claude (agentes)"],
+    domain: "Desenvolvimento",
+    note: "Do site institucional à aplicação completa.",
+    items: ["TypeScript", "JavaScript", "React", "HTML", "CSS", "Tailwind CSS", "C++", "C99"],
   },
+  {
+    domain: "IA & Ferramentas",
+    note: "Automação e o que segura o resto de pé.",
+    items: ["LLMs", "Agentes de IA", "Claude", "Notion API", "Git", "GitHub", "Vitest"],
+  },
+];
+
+export const education: { title: string; org: string; period: string }[] = [
+  { title: "Bacharelado em Tecnologia da Informação", org: "UFRN", period: "2024 – 2027" },
+  { title: "Google Data Analytics Professional Certificate", org: "Google", period: "2026" },
+  { title: "CS50x — Introdução à Ciência da Computação", org: "HarvardX", period: "2025" },
+  { title: "SQL para Análise de Dados", org: "Udemy", period: "2025" },
+  { title: "Língua Inglesa (curso completo)", org: "Senac RN", period: "2017 – 2020" },
 ];

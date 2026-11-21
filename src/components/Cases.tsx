@@ -21,8 +21,6 @@ export function Cases() {
 }
 
 function CaseBlock({ data }: { data: CaseStudy }) {
-  const metrics = data.metrics.filter((m) => m.value);
-
   return (
     <article aria-labelledby={`${data.id}-t`}>
       <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1 font-mono text-xs text-faint">
@@ -40,15 +38,22 @@ function CaseBlock({ data }: { data: CaseStudy }) {
         </div>
       )}
 
-      {metrics.length > 0 && (
-        <dl className="mt-8 grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-3">
-          {metrics.map((m) => (
-            <div key={m.label} className="bg-surface px-4 py-5">
-              <dd className="font-mono text-3xl font-medium tracking-tight">{m.value}</dd>
-              <dt className="mt-1 text-xs text-muted">{m.label}</dt>
-            </div>
+      {data.deliverables && data.deliverables.length > 0 && (
+        <ul className="mt-6 grid gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-2">
+          {data.deliverables.map((d) => (
+            <li key={d.name} className="bg-surface px-5 py-5">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <p className="font-medium">Painel · {d.name}</p>
+                {d.badge && (
+                  <span className="rounded-[4px] border border-accent/40 bg-accent-soft px-1.5 py-0.5 font-mono text-[10px] text-accent">
+                    {d.badge}
+                  </span>
+                )}
+              </div>
+              <p className="mt-1.5 text-sm leading-relaxed text-muted">{d.detail}</p>
+            </li>
           ))}
-        </dl>
+        </ul>
       )}
 
       <div className="mt-10 grid gap-10 md:grid-cols-2 md:gap-12">
