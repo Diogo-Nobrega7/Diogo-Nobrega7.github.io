@@ -42,5 +42,8 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      # Proteção temporária: enquanto Settings → Pages estiver em "Deploy from a branch", o GitHub também
+      # publica o README. Esperar garante que este deploy termine por último. Remova depois de trocar para "GitHub Actions".
+      - run: sleep 75
       - id: deployment
         uses: actions/deploy-pages@v4
