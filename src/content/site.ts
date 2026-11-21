@@ -136,6 +136,12 @@ export type Project = {
   engineering: string[];
   stack: string[];
   live?: { label: string; href: string };
+  /** Imagens em /public/projetos. "telas" = capturas de interface; "vertical" = quadros 9:16. */
+  media?: {
+    layout: "telas" | "vertical";
+    note: string;
+    items: { src: string; alt: string; caption: string }[];
+  };
 };
 
 /** Projetos próprios, fora da SUEP. Sem link para código: o foco é o que o sistema faz e como foi pensado. */
@@ -164,6 +170,14 @@ export const projects: Project[] = [
     ],
     stack: ["React", "TypeScript", "Supabase", "PostgreSQL", "Vitest", "GitHub Pages"],
     live: { label: "Ver o site", href: "https://diogo-nobrega7.github.io/monte-trip-2028/" },
+    media: {
+      layout: "telas",
+      note: "Capturas em modo demonstração, sem dados de alunos.",
+      items: [
+        { src: "/projetos/monte-painel.webp", alt: "Painel do Monte Trip com saldo da turma, meta e evolução financeira", caption: "Painel da turma" },
+        { src: "/projetos/monte-simulador.webp", alt: "Simulador do Monte Trip com parâmetros e projeção do saldo", caption: "Simulador de arrecadação" },
+      ],
+    },
   },
   {
     id: "rumo",
@@ -187,6 +201,14 @@ export const projects: Project[] = [
       "Gamificação (XP, nível, missões e conquistas) para manter a constância.",
     ],
     stack: ["React", "TypeScript", "Vite", "Tailwind", "Supabase"],
+    media: {
+      layout: "telas",
+      note: "Capturas em modo local, com perfil fictício.",
+      items: [
+        { src: "/projetos/rumo-hoje.webp", alt: "Tela Hoje do Rumo com plano do dia, missões e contagem para o ENEM", caption: "Hoje: plano do dia e missões" },
+        { src: "/projetos/rumo-redacao.webp", alt: "Tela de redação do Rumo com correção pelas competências C1 a C5", caption: "Redação: correção C1–C5" },
+      ],
+    },
   },
   {
     id: "operacao-videos",
@@ -210,6 +232,16 @@ export const projects: Project[] = [
       "A narração é o relógio: as pausas da voz definem o tempo de cada cena e legenda.",
     ],
     stack: ["Claude", "Python", "Notion API", "HyperFrames", "FFmpeg", "Node.js"],
+    media: {
+      layout: "vertical",
+      note: "Quadros de vídeos produzidos na fase de pilotos. As fontes aparecem no próprio vídeo.",
+      items: [
+        { src: "/projetos/video-agua-viva.webp", alt: "Quadro de vídeo: água-viva em cartoon com o texto 'Em vez de morrer, volta a ser bebê'", caption: "Água-viva imortal" },
+        { src: "/projetos/video-estrela-neutrons.webp", alt: "Quadro de vídeo: balança com um cubinho e muitas pessoas, texto '1 cubinho > 2x a humanidade'", caption: "Estrela de nêutrons" },
+        { src: "/projetos/video-alasca.webp", alt: "Quadro de vídeo: mapa do Alasca com countryballs da Rússia e dos EUA, texto '1867'", caption: "A venda do Alasca" },
+        { src: "/projetos/video-polvo.webp", alt: "Quadro de vídeo: polvo em cartoon com comparações 'Polvo: cobre, Humano: ferro'", caption: "Os três corações do polvo" },
+      ],
+    },
   },
 ];
 
