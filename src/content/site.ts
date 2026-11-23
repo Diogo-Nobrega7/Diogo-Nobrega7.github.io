@@ -32,6 +32,13 @@ export const profile = {
   },
 } as const;
 
+/** Imagens em /public/projetos. "telas" = capturas de interface; "vertical" = quadros 9:16. */
+export type Media = {
+  layout: "telas" | "vertical";
+  note: string;
+  items: { src: string; alt: string; caption: string }[];
+};
+
 export type CaseStudy = {
   id: string;
   index: string;
@@ -46,8 +53,10 @@ export type CaseStudy = {
   stack: string[];
   /** Power BI: URL de "Publicar na Web". Vazio = mostra o esquema do pipeline. */
   embedUrl?: string;
-  /** Capturas em /public/cases/... (sem dados de estudantes). */
-  screenshots?: { src: string; alt: string }[];
+  media?: Media;
+  /** Números públicos, sempre com fonte. */
+  facts?: { value: string; label: string }[];
+  factsSource?: { label: string; href: string };
   link?: { label: string; href: string };
 };
 
@@ -93,34 +102,64 @@ export const cases: CaseStudy[] = [
       "As escolas que precisam de atenção aparecem destacadas, sem cruzar planilhas à mão.",
       "Os indicadores de qualidade ficam num só lugar, filtráveis por DIREC, município e curso.",
       "Métricas mapeadas para apoiar o planejamento educacional da secretaria.",
+      "Os resultados das visitas técnicas de 2026 também estão publicados, em formato aberto, no portal da EPT.",
     ],
     stack: ["Power BI", "DAX", "Power Query", "Python", "SQL", "Excel"],
+    facts: [
+      { value: "142", label: "unidades visitadas em 2026" },
+      { value: "77", label: "municípios visitados" },
+      { value: "16", label: "DIRECs em 4 polos" },
+    ],
+    factsSource: {
+      label: "Pesquisa de visitas técnicas da SUEP 2026, publicada no portal da EPT",
+      href: "https://suepept.educacao.rn.gov.br/acompanhamento.html",
+    },
+    media: {
+      layout: "telas",
+      note: "Os resultados das visitas, publicados na página de acompanhamento do portal da EPT.",
+      items: [
+        { src: "/projetos/portal-visitas.webp", alt: "Resultados das visitas técnicas de 2026: 145 instituições, 142 unidades visitadas, 77 municípios, 16 DIRECs e indicadores percentuais", caption: "O que as visitas de 2026 mostraram" },
+        { src: "/projetos/portal-ciclo.webp", alt: "Ciclo de monitoramento em cinco etapas: coletar, sistematizar, analisar, planejar e agir", caption: "O ciclo de monitoramento" },
+      ],
+    },
     // Cole aqui o link "Publicar na Web" do painel de visitas técnicas para ele aparecer embutido.
     embedUrl: "",
-    screenshots: [],
   },
   {
     id: "portal-ept-rn",
     index: "02",
     client: "SEEC/RN — SUEP",
     title: "Portal da Rede Estadual de EPT do RN",
-    lede: "O portal oficial da SUEP para a educação profissional e tecnológica do estado, com todas as escolas de ensino técnico da rede.",
+    lede: "O portal oficial da SUEP para a educação profissional e tecnológica do estado: onde estudar, cursos, como entrar e o acompanhamento da rede.",
     problem:
-      "Estudantes e famílias precisavam de um lugar único para conhecer as escolas de ensino técnico da rede estadual, e a SUEP precisava de um canal oficial para a educação profissional do RN.",
+      "Estudantes e famílias precisavam de um lugar único para descobrir qual curso técnico existe perto de casa e como entrar, e a SUEP precisava de um canal oficial para a educação profissional do RN.",
     architecture: [
-      { step: "Conteúdo", detail: "Todas as escolas de ensino técnico da rede estadual, distribuídas em várias páginas." },
-      { step: "Navegação", detail: "Caminhos simples, pensados para quem não é da área técnica." },
-      { step: "Layout", detail: "Responsivo: se adapta ao computador e ao celular." },
-      { step: "Tecnologia", detail: "HTML, CSS e JavaScript, sem dependências pesadas." },
+      { step: "Conteúdo", detail: "12 páginas: o que é a EPT, cursos, como entrar, programas, estágio, acompanhamento, documentos e agenda." },
+      { step: "Busca", detail: "Filtro por município ou escola, por curso e pelas quatro formas de oferta: integrado, EJA, concomitante e subsequente." },
+      { step: "Mapa", detail: "Mapa do RN por município, colorido pelo número de unidades; um toque mostra as escolas de cada cidade." },
+      { step: "Tecnologia", detail: "HTML, CSS e JavaScript, responsivo do computador ao celular." },
     ],
     impact: [
       "Um endereço oficial para a educação profissional e tecnológica do RN.",
-      "Todas as escolas técnicas da rede reunidas num só lugar.",
-      "Uso fácil no computador e no celular.",
+      "Toda a oferta da rede encontrável numa busca, por cidade, curso ou forma de oferta.",
+      "Os dados públicos do acompanhamento da rede publicados no próprio portal.",
     ],
+    facts: [
+      { value: "145", label: "unidades na busca" },
+      { value: "80", label: "municípios com oferta" },
+      { value: "12", label: "páginas" },
+    ],
+    factsSource: { label: "suepept.educacao.rn.gov.br", href: "https://suepept.educacao.rn.gov.br/onde-estudar.html" },
+    media: {
+      layout: "telas",
+      note: "Capturas do portal no ar.",
+      items: [
+        { src: "/projetos/portal-home.webp", alt: "Página inicial do portal da Rede Estadual de EPT do RN", caption: "Página inicial" },
+        { src: "/projetos/portal-escolas.webp", alt: "Busca de cursos técnicos com filtros e mapa do RN por município", caption: "Onde estudar: busca e mapa" },
+      ],
+    },
     stack: ["HTML", "CSS", "JavaScript"],
-    // Cole aqui a URL pública do portal.
-    link: undefined,
+    link: { label: "Ver o portal", href: "https://suepept.educacao.rn.gov.br/" },
   },
 ];
 
@@ -136,12 +175,7 @@ export type Project = {
   engineering: string[];
   stack: string[];
   live?: { label: string; href: string };
-  /** Imagens em /public/projetos. "telas" = capturas de interface; "vertical" = quadros 9:16. */
-  media?: {
-    layout: "telas" | "vertical";
-    note: string;
-    items: { src: string; alt: string; caption: string }[];
-  };
+  media?: Media;
 };
 
 /** Projetos próprios, fora da SUEP. Sem link para código: o foco é o que o sistema faz e como foi pensado. */

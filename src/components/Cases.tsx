@@ -1,4 +1,5 @@
 import { cases, type CaseStudy } from "@/content/site";
+import { Gallery } from "./Gallery";
 import { ReportFrame } from "./ReportFrame";
 import { Section, Tag, TextLink } from "./ui";
 
@@ -32,9 +33,41 @@ function CaseBlock({ data }: { data: CaseStudy }) {
       </h3>
       <p className="mt-3 max-w-2xl text-lg leading-relaxed text-muted">{data.lede}</p>
 
-      {data.id === "bi-rede-estadual" && (
+      {data.embedUrl ? (
         <div className="mt-8">
           <ReportFrame data={data} />
+        </div>
+      ) : (
+        data.media && (
+          <div className="mt-8 overflow-hidden rounded-lg border border-line">
+            <Gallery media={data.media} />
+          </div>
+        )
+      )}
+
+      {data.facts && data.facts.length > 0 && (
+        <div className="mt-6">
+          <dl className="grid grid-cols-3 gap-px overflow-hidden rounded-lg border border-line bg-line">
+            {data.facts.map((f) => (
+              <div key={f.label} className="flex flex-col-reverse bg-surface px-4 py-5 sm:px-5">
+                <dt className="mt-1 text-xs leading-snug text-muted">{f.label}</dt>
+                <dd className="font-mono text-2xl font-medium tracking-tight sm:text-3xl">{f.value}</dd>
+              </div>
+            ))}
+          </dl>
+          {data.factsSource && (
+            <p className="mt-2 font-mono text-[11px] text-faint">
+              Fonte:{" "}
+              <a
+                href={data.factsSource.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline decoration-line-strong underline-offset-4 hover:text-fg hover:decoration-accent"
+              >
+                {data.factsSource.label}
+              </a>
+            </p>
+          )}
         </div>
       )}
 

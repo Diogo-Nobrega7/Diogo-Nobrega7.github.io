@@ -4,7 +4,7 @@ import { Container, GithubMark, LinkedinMark } from "./ui";
 
 const specs = [
   { k: "Cargo", v: profile.position, sub: profile.since },
-  { k: "Órgão", v: profile.org, sub: "Educação Profissional" },
+  { k: "Órgão", v: profile.org, sub: "Subcoordenadoria de Educação Profissional" },
   { k: "Formação", v: profile.education, sub: profile.educationDetail },
   { k: "Idiomas", v: profile.languages },
   { k: "Base", v: profile.location },
