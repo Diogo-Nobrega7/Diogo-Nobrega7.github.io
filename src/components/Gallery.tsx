@@ -25,7 +25,7 @@ export function Gallery({ media }: { media: Media }) {
             </li>
           ))}
         </ul>
-        <figcaption className="mt-5 font-mono text-[11px] text-faint">{media.note}</figcaption>
+        {media.note && <figcaption className="mt-5 font-mono text-[11px] text-faint">{media.note}</figcaption>}
       </figure>
     );
   }
@@ -64,7 +64,7 @@ export function Gallery({ media }: { media: Media }) {
           </li>
         ))}
       </ul>
-      <figcaption className="mt-5 font-mono text-[11px] text-faint">{media.note}</figcaption>
+      {media.note && <figcaption className="mt-5 font-mono text-[11px] text-faint">{media.note}</figcaption>}
     </figure>
   );
 }

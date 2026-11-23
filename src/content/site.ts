@@ -35,7 +35,7 @@ export const profile = {
 /** Imagens em /public/projetos. "telas" = capturas de interface; "vertical" = quadros 9:16. */
 export type Media = {
   layout: "telas" | "vertical";
-  note: string;
+  note?: string;
   items: { src: string; alt: string; caption: string }[];
 };
 
@@ -87,18 +87,6 @@ export const cases: CaseStudy[] = [
         detail: "Filtros por DIREC, município e curso, com formatação condicional nas escolas que precisam de atenção.",
       },
     ],
-    deliverables: [
-      {
-        name: "Indicadores de Qualidade da EPT 2025",
-        detail: "7 páginas: visão geral, DIRECs, rendimento por curso, jornada e perfil, SAEB e IDEB, e painel por escola.",
-        badge: "publicado na web",
-      },
-      {
-        name: "Visitas Técnicas 2026",
-        detail: "11 páginas: cobertura, oferta, docentes, planejamento, pesquisa, permanência, setor produtivo e infraestrutura.",
-        badge: "publicado na web",
-      },
-    ],
     impact: [
       "As escolas que precisam de atenção aparecem destacadas, sem cruzar planilhas à mão.",
       "Os indicadores de qualidade ficam num só lugar, filtráveis por DIREC, município, curso e escola.",
@@ -111,22 +99,14 @@ export const cases: CaseStudy[] = [
       { value: "142", label: "unidades visitadas em 2026" },
       { value: "18", label: "páginas de painel publicadas" },
     ],
-    factsSource: {
-      label: "Painéis da EPT/RN, publicados pela SUEP",
-      href: "https://suep-rn.github.io/SUEPBI/",
-    },
     media: {
       layout: "telas",
-      note: "Capturas dos painéis publicados. Dados agregados por escola, sem informação de estudantes.",
       items: [
-        { src: "/projetos/bi-indicadores-visao.webp", alt: "Painel Indicadores de Qualidade da EPT 2025, página Visão Geral, com filtros, cartões de indicadores e gráficos por DIREC, oferta e curso", caption: "Indicadores 2025 · Visão geral" },
         { src: "/projetos/bi-indicadores-direcs.webp", alt: "Matriz de DIRECs por indicadores com aprovação, evasão, retenção, IDEB e SAEB, com formatação condicional", caption: "Indicadores 2025 · Matriz por DIREC" },
         { src: "/projetos/bi-visitas-cobertura.webp", alt: "Painel Visitas Técnicas 2026, Visão Geral, com mapa de cobertura por município e situação das unidades", caption: "Visitas 2026 · Mapa de cobertura" },
-        { src: "/projetos/bi-visitas-oferta.webp", alt: "Painel Visitas Técnicas 2026, página Oferta, comparando turmas, cursos e matrículas de 2026 e 2025", caption: "Visitas 2026 · Oferta" },
       ],
     },
     link: { label: "Abrir os painéis", href: "https://suep-rn.github.io/SUEPBI/" },
-
   },
   {
     id: "portal-ept-rn",

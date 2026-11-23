@@ -49,7 +49,7 @@ function CaseBlock({ data }: { data: CaseStudy }) {
         <div className="mt-6">
           <dl className={`grid gap-px ${data.facts.length === 4 ? "grid-cols-2 sm:grid-cols-4" : "grid-cols-3"} overflow-hidden rounded-lg border border-line bg-line`}>
             {data.facts.map((f) => (
-              <div key={f.label} className="flex flex-col-reverse bg-surface px-4 py-5 sm:px-5">
+              <div key={f.label} className="flex flex-col-reverse justify-end bg-surface px-4 py-5 sm:px-5">
                 <dt className="mt-1 text-xs leading-snug text-muted">{f.label}</dt>
                 <dd className="font-mono text-2xl font-medium tracking-tight sm:text-3xl">{f.value}</dd>
               </div>
