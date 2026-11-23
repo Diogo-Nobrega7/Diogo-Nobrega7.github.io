@@ -11,7 +11,7 @@ npm run build    # gera out/
 
 ## Editar conteúdo
 Tudo está em `src/content/site.ts` (perfil, cases, projetos, stack e formação).
-Para completar: `embedUrl` do painel de visitas técnicas (link "Publicar na Web" do Power BI).
+Os painéis de Power BI estão em https://suep-rn.github.io/SUEPBI/ (para embutir um deles, preencha `embedUrl` no case).
 
 ## Power BI
 No case de BI, preencha `embedUrl` (Publicar na Web ou embed seguro) ou `screenshots`

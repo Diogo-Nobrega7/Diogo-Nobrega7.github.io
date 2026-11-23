@@ -47,7 +47,7 @@ function CaseBlock({ data }: { data: CaseStudy }) {
 
       {data.facts && data.facts.length > 0 && (
         <div className="mt-6">
-          <dl className="grid grid-cols-3 gap-px overflow-hidden rounded-lg border border-line bg-line">
+          <dl className={`grid gap-px ${data.facts.length === 4 ? "grid-cols-2 sm:grid-cols-4" : "grid-cols-3"} overflow-hidden rounded-lg border border-line bg-line`}>
             {data.facts.map((f) => (
               <div key={f.label} className="flex flex-col-reverse bg-surface px-4 py-5 sm:px-5">
                 <dt className="mt-1 text-xs leading-snug text-muted">{f.label}</dt>
@@ -76,7 +76,7 @@ function CaseBlock({ data }: { data: CaseStudy }) {
           {data.deliverables.map((d) => (
             <li key={d.name} className="bg-surface px-5 py-5">
               <div className="flex flex-wrap items-center justify-between gap-2">
-                <p className="font-medium">Painel · {d.name}</p>
+                <p className="font-medium">{d.name}</p>
                 {d.badge && (
                   <span className="rounded-[4px] border border-accent/40 bg-accent-soft px-1.5 py-0.5 font-mono text-[10px] text-accent">
                     {d.badge}

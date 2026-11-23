@@ -89,41 +89,44 @@ export const cases: CaseStudy[] = [
     ],
     deliverables: [
       {
-        name: "Visitas técnicas",
-        detail: "Acompanhamento das visitas técnicas às unidades da rede.",
+        name: "Indicadores de Qualidade da EPT 2025",
+        detail: "7 páginas: visão geral, DIRECs, rendimento por curso, jornada e perfil, SAEB e IDEB, e painel por escola.",
         badge: "publicado na web",
       },
       {
-        name: "Indicadores de qualidade",
-        detail: "Aprovação, retenção e evasão das escolas técnicas, com SAEB e IDEB.",
+        name: "Visitas Técnicas 2026",
+        detail: "11 páginas: cobertura, oferta, docentes, planejamento, pesquisa, permanência, setor produtivo e infraestrutura.",
+        badge: "publicado na web",
       },
     ],
     impact: [
       "As escolas que precisam de atenção aparecem destacadas, sem cruzar planilhas à mão.",
-      "Os indicadores de qualidade ficam num só lugar, filtráveis por DIREC, município e curso.",
-      "Métricas mapeadas para apoiar o planejamento educacional da secretaria.",
-      "Os resultados das visitas técnicas de 2026 também estão publicados, em formato aberto, no portal da EPT.",
+      "Os indicadores de qualidade ficam num só lugar, filtráveis por DIREC, município, curso e escola.",
+      "Os dois painéis estão abertos ao público, e os resultados das visitas também viraram página no portal da EPT.",
     ],
     stack: ["Power BI", "DAX", "Power Query", "Python", "SQL", "Excel"],
     facts: [
+      { value: "122", label: "escolas nos indicadores 2025" },
+      { value: "15.420", label: "matrículas acompanhadas" },
       { value: "142", label: "unidades visitadas em 2026" },
-      { value: "77", label: "municípios visitados" },
-      { value: "16", label: "DIRECs em 4 polos" },
+      { value: "18", label: "páginas de painel publicadas" },
     ],
     factsSource: {
-      label: "Pesquisa de visitas técnicas da SUEP 2026, publicada no portal da EPT",
-      href: "https://suepept.educacao.rn.gov.br/acompanhamento.html",
+      label: "Painéis da EPT/RN, publicados pela SUEP",
+      href: "https://suep-rn.github.io/SUEPBI/",
     },
     media: {
       layout: "telas",
-      note: "Os resultados das visitas, publicados na página de acompanhamento do portal da EPT.",
+      note: "Capturas dos painéis publicados. Dados agregados por escola, sem informação de estudantes.",
       items: [
-        { src: "/projetos/portal-visitas.webp", alt: "Resultados das visitas técnicas de 2026: 145 instituições, 142 unidades visitadas, 77 municípios, 16 DIRECs e indicadores percentuais", caption: "O que as visitas de 2026 mostraram" },
-        { src: "/projetos/portal-ciclo.webp", alt: "Ciclo de monitoramento em cinco etapas: coletar, sistematizar, analisar, planejar e agir", caption: "O ciclo de monitoramento" },
+        { src: "/projetos/bi-indicadores-visao.webp", alt: "Painel Indicadores de Qualidade da EPT 2025, página Visão Geral, com filtros, cartões de indicadores e gráficos por DIREC, oferta e curso", caption: "Indicadores 2025 · Visão geral" },
+        { src: "/projetos/bi-indicadores-direcs.webp", alt: "Matriz de DIRECs por indicadores com aprovação, evasão, retenção, IDEB e SAEB, com formatação condicional", caption: "Indicadores 2025 · Matriz por DIREC" },
+        { src: "/projetos/bi-visitas-cobertura.webp", alt: "Painel Visitas Técnicas 2026, Visão Geral, com mapa de cobertura por município e situação das unidades", caption: "Visitas 2026 · Mapa de cobertura" },
+        { src: "/projetos/bi-visitas-oferta.webp", alt: "Painel Visitas Técnicas 2026, página Oferta, comparando turmas, cursos e matrículas de 2026 e 2025", caption: "Visitas 2026 · Oferta" },
       ],
     },
-    // Cole aqui o link "Publicar na Web" do painel de visitas técnicas para ele aparecer embutido.
-    embedUrl: "",
+    link: { label: "Abrir os painéis", href: "https://suep-rn.github.io/SUEPBI/" },
+
   },
   {
     id: "portal-ept-rn",
